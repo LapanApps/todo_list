@@ -51,18 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _todoController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
 
-  void a_callback() {
-    print("Todo: ${_todoController.text}");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _todoController.addListener(() {
-      print("$_todoController.text");
-    });
-  }
-
+  List<String> _todoList = ["Get Milk", "Get Bread", "Get Eggs", "Get Sleep"];
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -77,26 +66,30 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Column(
-          children: [
-            TextField(controller: _todoController),
-            TextField(controller: _descriptionController),
-            Expanded(
-              child: ListView(
-                children: [
-                  Card(
-                      child: Column(
-                    children: [Text("Hello"), Text("World")],
-                  )),
-                  Card(
-                      child: Column(
-                    children: [Text("Hello"), Text("World")],
-                  ))
-                ],
-              ),
-            )
-          ],
-        ) // This trailing comma makes auto-formatting nicer for build methods.
-        );
+        body: // This trailing comma makes auto-formatting nicer for build methods.
+            Column(children: [
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                  controller: _todoController,
+                  decoration: const InputDecoration(
+                      labelText: "Todo", border: OutlineInputBorder())),
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _todoList.add(_todoController.text);
+                });
+              },
+              child: const Text("Add Todo")),
+          Expanded(
+            child: ListView.builder(
+                itemCount: _todoList.length,
+                itemBuilder: (context, index) =>
+                    Card(child: Text(_todoList[index]))),
+          )
+        ]));
   }
 }
