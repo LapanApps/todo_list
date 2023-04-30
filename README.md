@@ -1,6 +1,8 @@
 # todo_list
 
-A new Flutter project.
+Basic TODO list. Adding item, remove item etc.
+
+![Flutter demo todolist app](https://imgur.com/DwWUoFx.gif)
 
 ## Getting Started
 
